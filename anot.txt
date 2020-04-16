@@ -1,0 +1,128 @@
+AULAS DO MODULO 2 - Node.JS:
+
+yarn add ts-node-dev -D -> comando para instalar pacote que permite a um build no desenvolvimento
+fazendo com que não tenhamos que buildar toda hora. Além disso ele também já faz o carregamento
+rápido do nodemon
+  * --transpileOnly --> não vai verificar se nosso código ta errado, vai só executar, pois o
+  trabalho de mostrar o erro já é do VSCode
+  * --ignore-watch --> evita que nosso ts-node-dev fique observando alterações e ignora a pasta
+  * --inspect --> possibilita que o VSCode se conecte ao nosso código em desenvolvimento
+
+EditorConfig --> padronizar configurações entre diferentes editores de código! Facilitando
+trabalhos em equipe (baixar nas extensções do VSCode)
+  * trim_trailing_whitespace --> Elimina os espaços em branco na frente das linhas
+  * insert_final_newline --> Faz com que a última linha seja uma linha em branco, facilitando ir
+  para a última linha.
+  * end_of_line = lf --> Normalizar a linha em branco para qualquer SO
+
+ESLint --> padroniza alguns pequenos detalhes para evitar problemas entre editores de código, como
+o uso das aspas duplas ou únicas
+  * yarn add eslint -D --> Instalar o ESLint
+  * yarn eslint --init
+  * yarn add -D @typescript-eslint/eslint-plugin@latest eslint-config-airbnb-base@latest
+   eslint-plugin-import@^2.20.1 @typescript-eslint/parser@latest --> após o eslint init adicionar
+   esses plugins, após responder as perguntas
+  * Por fim baixar o ESLint nas extensões do VSCode
+  * yarn add -D eslint-import-resolver-typescript --> habilita o código a entender importações do
+  tipo typescript
+  * .eslintignore --> usado para ignorar algumas pastas que não precisam passar pelas regras
+
+
+Prettier --> serie de configurações automáticas para deixar o código mais "bonito"
+  * yarn add prettier eslint-config-prettier eslint-plugin-prettier -D --> pacotes para adicionar
+  o prettier e mais alguns adicionais para funcionar com eslint
+  * prettier.config.js --> usado para mudar alguns padrões do prettier, para não conflitar com o
+  eslint entre outros
+
+
+Debug --> usaremos o debug do próprio VSCode para achar os erros dos nossos projetos!
+  * Algumas mudanças no launch:
+    "request": "attach", (fica "observando" para entrar no programa no meio dele)
+    "name": "Debug",
+    (REMOVIDO) "program": "${workspaceFolder}/index.js",
+    "protocol": "inspector", (inspeciona para ligar na hora certa)
+    "restart": true,
+  * Clicamos ao lado da linha que queremos inspecionar, botando uma bolinha vermelha, no
+  debug ele vai parar ali para você poder inspecionar
+
+
+yarn add date-fns --> Baixar biblioteca para lidar com datas e horários
+  * startOfHouer --> como já diz o método, muda o horário para o começo daquela hora
+  * parseISO --> transforma a hora no método Date() do próprio JS
+  * isEqual --> verifica se uma data é igual a outra, em data e horário
+
+
+Repositório:
+  * É uma conexão da persistência dos dados com a nossa rota
+    (Persistência <-> Repositório <-> Rota)
+  * Dentro do repositório terão metodos que nos permitam interagir com o banco de dados,
+  como o método find e create
+  * Um repositório por model
+  * São criados em formato de classe e possuem as funções para mexerem com os dados do
+  repositório, é como uma orientação a objeto
+
+
+SoC - Separations of Concerns (Separação de preocupações):
+  * É bem direto ao que o próprio título diz, uma separação de afazeres, cada rota não deve
+  ficar preocupada com muitas coisas ao mesmo tempo! Por isso abstraimos o código para
+  essa filosofia
+  * Nossa rota deve estar preocupada só com um processo --> Receber uma requisição - chamar
+  outro arquivo - Devolver uma requisição
+
+
+
+DTO - Data Transfer Object:
+ * É o processo de transferir dados de um arquivo pra outro através de objetos
+ * Criamos um objeto para armazenar o que queremos enviar e tornar mais fácil a adição
+ de informações no futuro
+
+
+Regras de negócio:
+  * Quando é algo muito específico da minha aplicação pode ser considerada uma regra de
+  negócio (com o tempo vai ter que ser alterado)
+  * São usados Services para manejar cada regra de negócio diferente do nosso projeto!
+  Mas os services não tem acesso aos dados do nosso requerimento
+  * sempre que o service tiver uma dependência externa o service que usa ele deve receber
+  o mesmo e não criar um novo, isso é feito através do constructor (Dependency Inversion)
+  * Uma transformação de dados é diferente de uma regra de negócio!!
+
+
+Dependency Inversion:
+  *
+
+
+
+COMANDOS:
+Comando Omit<>:
+  * Recebe dois argumentos: o tipo da váriavel e o que você quer omitir
+  * Serve para váriaveis que vão receber alguns valores fixos e não enviador pelo usuário
+
+* Reindent Lines - no menu do VSCode para reidentar as linhas para seu formato
+
+
+
+
+
+
+
+    const outcome = this.transactions.map(transaction => {
+      if (transaction.type === 'outcome') {
+        return transaction.value;
+      }
+      return 0;
+    });
+
+    const income = this.transactions.map(transaction => {
+      if (transaction.type === 'income') {
+        return transaction.value;
+      }
+      return 0;
+    });
+
+    for (let i = 0; i < outcome.length; i += 1) {
+      outT += outcome[i];
+    }
+
+    for (let j = 0; j < income.length; j += 1) {
+      inT = income[j];
+    }
